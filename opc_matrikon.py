@@ -1,28 +1,44 @@
 # # Импорт пакетов для подключения OPC сервера
+import time
+
 from openopc2 import da_client
 import pywintypes
+from openopc2.config import OpenOpcConfig
+from openopc2.da_client import OpcDaClient
+from openopc2.gateway_proxy import OpenOpcGatewayProxy
+
+
+def get_opc_da_client(config: OpenOpcConfig = OpenOpcConfig()) -> OpcDaClient:
+    if config.OPC_MODE == "gateway":
+        opc_da_client = OpenOpcGatewayProxy(config.OPC_GATEWAY_HOST, config.OPC_GATEWAY_PORT).get_opc_da_client_proxy()
+        print("OpenOPC in gateway mode")
+    else:
+        opc_da_client = OpcDaClient(config)
+        print("OpenOPC in com mode")
+
+    opc_da_client.connect(config.OPC_SERVER, config.OPC_HOST)
+    return opc_da_client
 
 
 if __name__ == '__main__':
-    # #ПОДКЛЮЧЕНИЕ к OPC серверу
-    # #Создать клиентский объект OPC DA
-    pywintypes.datetime = pywintypes.TimeType
-    opc = da_client.OpcDaClient()
+    open_opc_config = OpenOpcConfig()
+    paths = "*"
+    open_opc_config.OPC_SERVER = "Matrikon.OPC.Simulation"
+    open_opc_config.OPC_GATEWAY_HOST = "localhost"
+    open_opc_config.OPC_CLASS = "Graybox.OPC.DAWrapper"
+    open_opc_config.OPC_MODE = 'com'
 
-    # #Поиск серверов OPC DA
-    servers = opc.servers(opc_host='localhost')
-    print(servers)
+    opc_client = get_opc_da_client(open_opc_config)
+    tags = opc_client.list(paths=paths, recursive=False, include_type=False, flat=True)
+    tags = [tag for tag in tags if "@" not in tag]
+    # print(tags)
 
-    # #Подключение к OPC DA-серверу
-    opc.connect('Matrikon.OPC.Simulation.1')
-    aliases = opc.list()
-    print(aliases)
+    print("TAGS:")
+    for n, tag in enumerate(tags):
+        print(f"{n:3} {tag}")
 
-    # #Используйте list() для поиска доступных элементов
-    groups = opc.list('Simulation Items.Random')
-    print(groups)
-
-    # Pass on tag group to read and write method
-    opc.read('Random.Int4')
-
-    opc.close()
+    print("READ:")
+    for n, tag in enumerate(tags):
+        start = time.time()
+        read = opc_client.read(tag, sync=False)
+        print(f'{n:3} {time.time()-start:.3f}s {tag} {read}')
