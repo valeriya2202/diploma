@@ -29,7 +29,7 @@ WHERE "sodium_sulfide_301.1.1" >= %(py_sodium_sulfide_301_1_1)s - %(a1)s AND "so
 ORDER BY extraction_1l DESC LIMIT 1;
 """
 
-qSelectDiff1_5 = """
+qSelectDiff1_4 = """
 SELECT * FROM tbl_copper_primary_sulfides;
 """
 
