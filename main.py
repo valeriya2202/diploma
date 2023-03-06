@@ -105,7 +105,7 @@ print("liquid_glass_306 = ", peremennaya13)
 peremennaya14 = float(py_liquid_glass_220_1)
 print("liquid_glass_220_1 = ", peremennaya14)
 peremennaya15 = float(py_240and301_1)
-print("_240and301_1 = ", peremennaya15)
+print("240and301_1 = ", peremennaya15)
 peremennaya16 = float(py_flocculant)
 print("flocculant = ", peremennaya16)
 peremennaya17 = float(py_lump_lime)
@@ -136,7 +136,7 @@ a11 = 5
 a12 = 50
 a13 = 50
 a14 = 50
-a15 = 50
+a15 = 5
 a16 = 50
 a17 = 50
 a18 = 50
@@ -211,11 +211,6 @@ cursor = conn.cursor()
 cursor.execute(queries.qSelectAll1_1)
 # Присваиваем визуальному отображению
 ris_copper_primary_sulfides = cursor.fetchall()
-# Закрываем курсор
-cursor.close()
-conn.close()
-print("Соединение с PostgreSQL закрыто")
-# Определяем столбцы
 columns = ("proces_1l", "power_main_1l", "concentrate_basic_1l", "tails_basic_1l", "food_1cleaning",
            "tails_1cleaning_1l", "food_2cleaning", "concentrate_3cleaning", "tailings", "extraction_1l",
            "cleaning_1", "extraction_technological", "_301_1_solid", "_303_solid", "_306_solid", "_309_solid",
@@ -361,10 +356,6 @@ for tbl_copper_primary_sulfides in cursor:
           f"{tbl_copper_primary_sulfides[63]} - {tbl_copper_primary_sulfides[64]} - {tbl_copper_primary_sulfides[65]} - "
           f"{tbl_copper_primary_sulfides[66]}"
           )
-# Закрываем курсор
-cursor.close()
-conn.close()
-print("Соединение с PostgreSQL закрыто")
 
 # СЛОВАРЬ ПЕРЕМЕННЫХ ДЛЯ SQL ЗАПРОСА
 # Устанавливаем соединение
@@ -372,28 +363,29 @@ conn = psycopg2.connect(database="MGOK_1", user="postgres", password="Leonova200
 # Задаём курсор
 cursor = conn.cursor()
 # Создаём словарь переменных для обращения к SQL запросу
-cursor.execute(queries.qSelectDiff1_3, vars=[{'py_sodium_sulfide_301_1_1': py_sodium_sulfide_301_1_1, 'a1': a1},
-                                             {'py_sodium_sulfide_301_1': py_sodium_sulfide_301_1, 'a2': a2},
-                                             {'py_sodium_sulfide_303': py_sodium_sulfide_303, 'a3': a3},
-                                             {'py_xanthate_301_1': py_xanthate_301_1, 'a4': a4},
-                                             {'py_xanthate_301_1_2': py_xanthate_301_1_2, 'a5': a5},
-                                             {'py_xanthate_301_1_2': py_xanthate_301_1_2, 'a6': a6},
-                                             {'py_xanthate_301_1_3': py_xanthate_301_1_3, 'a7': a7},
-                                             {'py_xanthate_301_1_4': py_xanthate_301_1_4, 'a8': a8},
-                                             {'py_xanthate_301_1_5': py_xanthate_301_1_5, 'a9': a9},
-                                             {'py_aeroflot_301_1': py_aeroflot_301_1, 'a10': a10},
-                                             {'py_aeroflot_301_1_3and4': py_aeroflot_301_1_3and4, 'a11': a11},
-                                             {'py_aeroflot_303_1_5and6': py_aeroflot_303_1_5and6, 'a12': a12},
-                                             {'py_mibk_301_1_1': py_mibk_301_1_1, 'a13': a13},
-                                             {'py_liquid_glass_306': py_liquid_glass_306, 'a14': a14},
-                                             {'py_liquid_glass_220_1': py_liquid_glass_220_1, 'a15': a15},
-                                             {'py_240and301_1': py_240and301_1, 'a16': a16},
-                                             {'py_flocculant': py_flocculant, 'a17': a17},
-                                             {'py_lump_lime': py_lump_lime, 'a18': a18},
-                                             {'py_oil_pine_301_1': py_oil_pine_301_1, 'a19': a19},
-                                             {'py_oil_pine_243': py_oil_pine_243, 'a20': a20},
-                                             {'py_kmc_sump_240': py_kmc_sump_240, 'a21': a21},
-                                             {'py_lump_lime_602': py_lump_lime_602, 'a22': a22}]
+cursor.execute(queries.qSelectDiff1_3, vars={'py_sodium_sulfide_301_1_1': py_sodium_sulfide_301_1_1, 'a1': a1,
+                                             'py_sodium_sulfide_301_1': py_sodium_sulfide_301_1, 'a2': a2,
+                                             'py_sodium_sulfide_303': py_sodium_sulfide_303, 'a3': a3,
+                                             'py_xanthate_301_1': py_xanthate_301_1, 'a4': a4,
+                                             'py_xanthate_301_1_2': py_xanthate_301_1_2, 'a5': a5,
+                                             'py_xanthate_301_1_3': py_xanthate_301_1_3, 'a6': a6,
+                                             'py_xanthate_301_1_4': py_xanthate_301_1_4, 'a7': a7,
+                                             'py_xanthate_301_1_5': py_xanthate_301_1_5, 'a8': a8,
+                                             'py_aeroflot_301_1': py_aeroflot_301_1, 'a9': a9,
+                                             'py_aeroflot_301_1_3and4': py_aeroflot_301_1_3and4, 'a10': a10,
+                                             'py_aeroflot_303_1_5and6': py_aeroflot_303_1_5and6, 'a11': a11,
+                                             'py_mibk_301_1_1': py_mibk_301_1_1, 'a12': a12,
+                                             'py_liquid_glass_306': py_liquid_glass_306, 'a13': a13,
+                                             'py_liquid_glass_220_1': py_liquid_glass_220_1, 'a14': a14,
+                                             'py_240and301_1': py_240and301_1, 'a15': a15,
+                                             'py_flocculant': py_flocculant, 'a16': a16,
+                                             'py_lump_lime': py_lump_lime, 'a17': a17,
+                                             'py_oil_pine_301_1': py_oil_pine_301_1, 'a18': a18,
+                                             'py_oil_pine_243': py_oil_pine_243, 'a19': a19,
+                                             'py_kmc_sump_260': py_kmc_sump_260, 'a20': a20,
+                                             'py_kmc_sump_240': py_kmc_sump_240, 'a21': a21,
+                                             'py_lump_lime_602': py_lump_lime_602, 'a22': a22
+                                             }
                )
 diff = cursor.fetchall()
 print("test: ", diff)
