@@ -145,7 +145,7 @@ a20 = 50
 a21 = 50
 a22 = 50
 
-# ПОДКЛЮЧЕНИЕ к БД, где: база данных MGOK_1,
+# 2. ПОДКЛЮЧЕНИЕ к БД, где: база данных MGOK_1,
 # имя пользователя MGOK, пароль Leonova2001 и host это localhost или 127.0.0.1
 # После зададим курсор для операций с БД - cursor
 try:
@@ -335,7 +335,7 @@ conn = psycopg2.connect(database="MGOK_1", user="postgres", password="Leonova200
 cursor = conn.cursor()
 # Получаем все данные из таблицы tbl_copper_primary_sulfides
 # Столбики от 0 до 68, где 68 - это id
-cursor.execute(queries.qSelectDiff1_3)
+cursor.execute(queries.qSelectDiff1_1)
 for tbl_copper_primary_sulfides in cursor:
     print(f"{tbl_copper_primary_sulfides[0]} - {tbl_copper_primary_sulfides[1]} - {tbl_copper_primary_sulfides[2]} - "
           f"{tbl_copper_primary_sulfides[3]} - {tbl_copper_primary_sulfides[4]} - {tbl_copper_primary_sulfides[5]} - "
