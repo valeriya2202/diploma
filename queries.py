@@ -61,8 +61,8 @@ AND "liquid_glass_306" <= %(py_liquid_glass_306)s + %(a13)s
 AND "liquid_glass_220.1" >= %(py_liquid_glass_220_1)s - %(a14)s
 AND "liquid_glass_220.1" <= %(py_liquid_glass_220_1)s + %(a14)s
 
-AND "240and301_1" >= %(py_240and301_1)s - %(a15)s
-AND "240and301_1" <= %(py_240and301_1)s + %(a15)s
+AND "240-301.1" >= %(py_240and301_1)s - %(a15)s
+AND "240-301.1" <= %(py_240and301_1)s + %(a15)s
 
 AND "flocculant" >= %(py_flocculant)s - %(a16)s
 AND "flocculant" <= %(py_flocculant)s + %(a16)s
